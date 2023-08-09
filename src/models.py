@@ -21,6 +21,7 @@ class Post(Base):
     __tablename__ = 'post'
     ID = Column(Integer, primary_key=True)
     user_id= Column(Integer, ForeignKey('user.ID'))
+    user = relationship(User)
 
 
 class Media(Base):
@@ -29,6 +30,7 @@ class Media(Base):
     type= Column(Enum)
     url = Column(String(70))
     post_id = Column(Integer, ForeignKey('post.ID'))
+    post = relationship(Post)
     
 class Comment(Base):
     __tablename__= 'comment'  
@@ -36,12 +38,15 @@ class Comment(Base):
     comment_text = Column(String(150))
     author_id = Column(Integer, ForeignKey('user.ID'))
     post_id = Column(Integer, ForeignKey('post.ID'))
+    user = relationship(User)
+    post = relationship(Post)
     
     
 class Follower(Base):
     __tablename__ = 'follower'  
     user_from_id = Column(Integer, ForeignKey('user.ID'), primary_key=True)
     user_to_id = Column(Integer, ForeignKey('user.ID'))
+    user = relationship(User)
     
 
 
